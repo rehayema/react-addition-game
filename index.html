@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<title>React</title>
+</head>
+<body>
+
+    <div id="app"></div>
+
+<!-- <form action="" method="POST" id="myForm">
+    <p>What is your name?</p>
+    <input id="name" name="name" type="text">
+    <input type="submit" onclick="formData()">
+</form> -->
+<!-- <script type="text/javascript">
+    function formData(){
+        myForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fName = document.getElementById("name").value;
+        console.log(fName);
+    })
+} -->
+
+
+<script type="text/babel">
+    function Myhello(props){
+        return (
+        <h1>Hi there, {props.name}!</h1>
+    );
+    } 
+    function App(){
+        return (
+            <div>
+          <Myhello name="Jules"/>
+          <Myhello name="Aleck"/>
+            </div>     
+        );
+    }
+    ReactDOM.render(<App />, document.querySelector("#app"));
+</script>
+</body>
+</html>

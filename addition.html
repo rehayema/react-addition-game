@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<title>React</title>
+<style>
+    #app {
+        text-align:center;
+        font-family: sans-serif;
+    }
+    #problem {
+        font-size: 75px;
+        font-weight: bold;
+    }
+    .incorrect {
+        color: red;
+    }
+    #won {
+        font-size: 72px;
+        color:green;
+    }
+
+</style>
+
+</head>
+<body>
+
+<div id="app"></div>
+
+<script type="text/babel">
+   // App component - components are functions that do specific things
+   function App(){
+   
+    function getRandomInt(){
+    // returns a number between 0 and 11    
+    return Math.round(Math.random() * (10 - 1) + 1);
+   } 
+
+   //set initial states
+   const [state, setState] = React.useState({
+        num1: getRandomInt(),
+        num2: getRandomInt(),
+        response: "",
+        score: 0,
+        incorrect: false
+    });
+
+    //Update states
+    function inputKeyPress(event){
+        if (event.key === "Enter"){
+            const answer = parseInt(state.response);
+            if (state.num1 + state.num2 === answer) {
+                //User got the question correct
+                setState({
+                    ...state,
+                    score: state.score + 1,
+                    num1: getRandomInt(),// change the number
+                    num2: getRandomInt(),
+                    response: "", // clear out the input field so user can add a new value
+                    incorrect: false
+                });
+            } else {
+                // User got the question wrong
+                setState({
+                    ...state,
+                    score: state.score -1,
+                    response: "",
+                    incorrect: true
+                });
+        }
+    }
+}
+
+    function updateResponse(event){
+        setState({
+            ...state, //spread updates to the original object
+            response: event.target.value
+        });
+    }
+        if  (state.score === 10) {
+            return(
+                <div id="won">
+                    You Won!
+                </div>
+            
+
+            );
+        }
+    
+        return(
+        <div>
+            <div id="problem" className={state.incorrect ? "incorrect" : ""}>{state.num1} + {state.num2}</div>
+            <br />
+            <input type="text" autoFocus={true} onKeyPress={inputKeyPress} onChange={updateResponse} value={state.response} />
+            <div>The score is: {state.score}! </div>
+        </div>
+        );
+    
+}
+    ReactDOM.render(<App />, document.querySelector("#app"));
+</script>
